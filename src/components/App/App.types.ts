@@ -3,6 +3,7 @@ import { ConnectWalletRequestAction } from '../../modules/wallet/actions'
 
 export type Props = {
   address: string
+  balance: bigint | null
   isConnected: boolean
   isConnecting: boolean
   error: string | null
@@ -11,7 +12,7 @@ export type Props = {
 
 export type MapStateProps = Pick<
   Props,
-  'address' | 'isConnected' | 'isConnecting' | 'error'
+  'address' | 'balance' | 'isConnected' | 'isConnecting' | 'error'
 >
 export type MapDispatchProps = Pick<Props, 'onConnect'>
 export type MapDispatch = Dispatch<ConnectWalletRequestAction | AnyAction>

@@ -2,14 +2,21 @@ import { AnyAction } from 'redux'
 import {
   ConnectWalletFailureAction,
   ConnectWalletSuccessAction,
+  WalletBalanceSuccessAction,
+  WalletBalanceFailureAction,
   CONNECT_WALLET_FAILURE,
   CONNECT_WALLET_REQUEST,
   CONNECT_WALLET_SUCCESS,
+  GET_BALANCE_REQUEST,
+  GET_BALANCE_SUCCESS,
+  GET_BALANCE_FAILURE,
 } from './actions'
 import { WalletState } from './types'
 
 const INITIAL_STATE: WalletState = {
   address: null,
+  dummyBalance: BigInt(0),
+  balanceError: null,
   isConnecting: false,
   error: null,
 }
@@ -44,6 +51,20 @@ export function walletReducer(
         isConnecting: false,
         error,
       }
+    }
+
+    case GET_BALANCE_REQUEST: {
+      return { ...state }
+    }
+
+    case GET_BALANCE_SUCCESS: {
+      const { dummyBalance } = action.payload as WalletBalanceSuccessAction['payload']
+      return { ...state, dummyBalance, balanceError: null }
+    }
+
+    case GET_BALANCE_FAILURE: {
+      const { error } = action.payload as WalletBalanceFailureAction['payload']
+      return { ...state, balanceError: error }
     }
 
     default:

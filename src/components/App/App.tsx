@@ -3,8 +3,11 @@ import { Button, Card, Center, Footer, Header, Navbar, Page } from 'decentraland
 import { Props } from './App.types'
 import './App.css'
 
-const App: React.FC<Props> = ({ address, isConnected, onConnect, isConnecting, error }) => {
-  return (
+const App: React.FC<Props> = ({ address, balance, isConnected, onConnect, isConnecting, error }) => {
+    const theBalance = balance || 0;
+    const dummyDescription = theBalance +  (theBalance>1n || theBalance === 0 ? ' DUMMIES' : ' DUMMY')
+
+    return (
     <>
       <Navbar activePage="Wallet" />
       <Page className="App">
@@ -23,13 +26,17 @@ const App: React.FC<Props> = ({ address, isConnected, onConnect, isConnecting, e
                 <strong>Address:</strong>&nbsp;
                 {address.slice(0, 6) + '...' + address.slice(-4)}
               </p>
+                <p>
+                    <strong>Balance:</strong>&nbsp;
+                    {dummyDescription}
+                </p>
             </Card>
           )}
         </Center>
       </Page>
       <Footer />
     </>
-  )
+    )
 }
 
 export default App
