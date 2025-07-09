@@ -5,6 +5,7 @@ export type WalletState = {
   dummyBalance: bigint | null
   isConnecting: boolean
   error: string | null
+  isLoading: boolean
   balanceError: string | null,
 }
 

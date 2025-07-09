@@ -18,6 +18,7 @@ const INITIAL_STATE: WalletState = {
   dummyBalance: BigInt(0),
   balanceError: null,
   isConnecting: false,
+  isLoading: false,
   error: null,
 }
 
@@ -54,17 +55,17 @@ export function walletReducer(
     }
 
     case GET_BALANCE_REQUEST: {
-      return { ...state }
+      return { ...state, isLoading: true, }
     }
 
     case GET_BALANCE_SUCCESS: {
       const { dummyBalance } = action.payload as WalletBalanceSuccessAction['payload']
-      return { ...state, dummyBalance, balanceError: null }
+      return { ...state, dummyBalance, isLoading: false, balanceError: null }
     }
 
     case GET_BALANCE_FAILURE: {
       const { error } = action.payload as WalletBalanceFailureAction['payload']
-      return { ...state, balanceError: error }
+      return { ...state, isLoading: false, balanceError: error }
     }
 
     default:
