@@ -10,6 +10,9 @@ import {
   walletBalanceFailure,
   GET_BALANCE_REQUEST,
   WalletBalanceRequestAction,
+  transferFundsSuccess,
+  transferFundsFailure,
+  TransferFundsRequestAction, TRANSFER_FUNDS_REQUEST
 } from './actions'
 import { WindowWithEthereum } from './types'
 import { VITE_TOKEN_ADDRESS } from '../../env'
@@ -39,6 +42,7 @@ export const TOKEN_ABI = [
 export function* walletSaga() {
   yield takeEvery(CONNECT_WALLET_REQUEST, handleConnectWalletRequest)
   yield takeEvery(GET_BALANCE_REQUEST, handleGetBalanceRequest)
+  yield takeEvery(TRANSFER_FUNDS_REQUEST, handleTransferTokenRequest)
 }
 
 export function* handleConnectWalletRequest() {
@@ -64,5 +68,19 @@ export function* handleGetBalanceRequest(action: WalletBalanceRequestAction) {
     yield put(walletBalanceSuccess(balance))
   } catch (error) {
     yield put(walletBalanceFailure(getMessageFromError(error)))
+  }
+}
+
+export function* handleTransferTokenRequest(action: TransferFundsRequestAction) {
+  try {
+    const {transferTo, funds} = action.payload
+    const provider = new ethers.BrowserProvider(windowWithEthereum.ethereum)
+    const signer = yield call([provider, 'getSigner'])
+    const token = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, signer)
+    const transaction = yield call(() => token.transfer(transferTo, funds))
+    yield call([transaction, 'wait'])
+    yield put(transferFundsSuccess(transaction))
+  } catch (error) {
+    yield put(transferFundsFailure(getMessageFromError(error)))
   }
 }

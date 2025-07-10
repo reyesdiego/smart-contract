@@ -10,7 +10,7 @@ import {
 import Wallet from '../../components/Wallet'
 import { Center} from 'decentraland-ui'
 
-const Index = () => {
+const WalletPage = () => {
     const dispatch = useDispatch();
     const address = useSelector(getAddress);
     const isLoadingBalance = useSelector(isLoading);
@@ -35,4 +35,4 @@ const Index = () => {
     );
 };
 
-export default Index;
+export default WalletPage;

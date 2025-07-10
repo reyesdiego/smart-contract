@@ -4,12 +4,19 @@ import {
   ConnectWalletSuccessAction,
   WalletBalanceSuccessAction,
   WalletBalanceFailureAction,
+  TransferFundsRequestAction,
+  TransferFundsSuccessAction,
+  TransferFundsFailureAction,
   CONNECT_WALLET_FAILURE,
   CONNECT_WALLET_REQUEST,
   CONNECT_WALLET_SUCCESS,
   GET_BALANCE_REQUEST,
   GET_BALANCE_SUCCESS,
   GET_BALANCE_FAILURE,
+  TRANSFER_FUNDS_REQUEST,
+  TRANSFER_FUNDS_SUCCESS,
+  TRANSFER_FUNDS_FAILURE,
+  TRANSFER_CLEAR_TRANSACTION
 } from './actions'
 import { WalletState } from './types'
 
@@ -19,6 +26,8 @@ const INITIAL_STATE: WalletState = {
   balanceError: null,
   isConnecting: false,
   isLoading: false,
+  isTransferring: false,
+  transactionId: null,
   error: null,
 }
 
@@ -55,10 +64,11 @@ export function walletReducer(
     }
 
     case GET_BALANCE_REQUEST: {
-      return { ...state, isLoading: true, }
+      return { ...state, isLoading: true}
     }
 
     case GET_BALANCE_SUCCESS: {
+
       const { dummyBalance } = action.payload as WalletBalanceSuccessAction['payload']
       return { ...state, dummyBalance, isLoading: false, balanceError: null }
     }
@@ -68,6 +78,25 @@ export function walletReducer(
       return { ...state, isLoading: false, balanceError: error }
     }
 
+    case TRANSFER_FUNDS_REQUEST: {
+      return { ...state, isTransferring: true, }
+    }
+
+    case TRANSFER_FUNDS_SUCCESS: {
+      const actionData = action.payload
+      return { ...state, isTransferring: false, transactionId: actionData?.transactionId?.hash}
+    }
+
+    case TRANSFER_FUNDS_FAILURE: {
+      const { error } = action.payload as TransferFundsFailureAction['payload']
+      return { ...state, isTransferring: false, error }
+    }
+
+    case TRANSFER_CLEAR_TRANSACTION:
+      return {
+        ...state,
+        transactionId: null,
+      };
     default:
       return state
   }

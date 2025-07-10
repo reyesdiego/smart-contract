@@ -7,6 +7,8 @@ export type WalletState = {
   error: string | null
   isLoading: boolean
   balanceError: string | null,
+  isTransferring: boolean,
+  transactionId: string | null,
 }
 
 export type WindowWithEthereum = Window & {
