@@ -10,9 +10,7 @@ const Success = () => {
     const navigateTo = useNavigate();
 
     useEffect(() => {
-        return () => {
-            dispatch(transferFundsClearTransaction());
-        };
+        dispatch(transferFundsClearTransaction());
     }, [dispatch]);
 
     return <Center>
