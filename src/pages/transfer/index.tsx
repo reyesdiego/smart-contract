@@ -47,7 +47,10 @@ const Transfer = () => {
             <Field
                 label="Address"
                 error={transferToError}
+                maxLength={42}
                 onChange={(_, data) => {
+                    if (data.value.length < 42) return;
+
                     const isValidAddress = /^0x[a-fA-F0-9]{40}$/.test(data.value);
                     setTransferToError(!isValidAddress);
                     setTransferTo(data.value);

@@ -1,11 +1,44 @@
 import { RootState } from '../types'
+import {createSelector} from 'reselect'
 
 export const getState = (state: RootState) => state.wallet
-export const getAddress = (state: RootState) => getState(state).address || ''
-export const getBalance = (state: RootState) => getState(state).dummyBalance || null
-export const isConnected = (state: RootState) => !!getAddress(state)
-export const isLoading = (state: RootState) => getState(state).isLoading
-export const getIsTransferring = (state: RootState) => getState(state).isTransferring
-export const getTransactionId = (state: RootState) => getState(state).transactionId
-export const isConnecting = (state: RootState) => getState(state).isConnecting
-export const getError = (state: RootState) => getState(state).error
+
+export const getAddress = createSelector(
+    [getState],
+    (wallet) => wallet.address || ''
+)
+
+export const getBalance = createSelector(
+    [getState],
+    (wallet) => wallet.dummyBalance || null
+)
+
+export const isConnected = createSelector(
+    [getAddress],
+    (address) => !!address
+)
+
+export const isLoading = createSelector(
+    [getState],
+    (wallet) => wallet.isLoading
+)
+
+export const getIsTransferring = createSelector(
+    [getState],
+    (wallet) => wallet.isTransferring
+)
+
+export const getTransactionId = createSelector(
+    [getState],
+    (wallet) => wallet.transactionId
+)
+
+export const isConnecting = createSelector(
+    [getState],
+    (wallet) => wallet.isConnecting
+)
+
+export const getError = createSelector(
+    [getState],
+    (wallet) => wallet.error
+)
