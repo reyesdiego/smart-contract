@@ -1,12 +1,12 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {Button, Card, Center, Icon, Row} from "decentraland-ui"
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {transferFundsClearTransaction} from "../../modules/wallet/actions";
 
-const Success = () => {
+const Failure: React.FC = () => {
     const dispatch = useDispatch();
-    const { transaction, funds } = useParams();
+    const location = useLocation();
     const navigateTo = useNavigate();
 
     useEffect(() => {
@@ -16,9 +16,9 @@ const Success = () => {
     return <Center>
         <div className="wallet">
         <Card>
-        <h1>Congrats !</h1>
-        <p>You've just successfully transferred <strong>{funds} DUMMIES</strong></p>
-        <p>Transaction ID: {transaction}</p>
+        <h1>Ups !</h1>
+        <p>We are sorry, the transaction couldn't finish successfully</p>
+        <p>Error: {location.state?.error}</p>
         </Card>
         <Row>
             <div style={{marginRight: "auto"}}>
@@ -28,9 +28,9 @@ const Success = () => {
                 </Button>
             </div>
             <div style={{marginLeft: "auto"}}>
-                <Button basic onClick={() => navigateTo('/transfer')}>
+                <Button name="transfer" basic onClick={() => navigateTo('/transfer')}>
                     <Icon name="arrow right"/>
-                    Transfer
+                    Try again
                 </Button>
             </div>
         </Row>
@@ -38,4 +38,4 @@ const Success = () => {
     </Center>
 }
 
-export default Success;
+export default Failure;

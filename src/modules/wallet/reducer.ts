@@ -4,8 +4,6 @@ import {
   ConnectWalletSuccessAction,
   WalletBalanceSuccessAction,
   WalletBalanceFailureAction,
-  TransferFundsRequestAction,
-  TransferFundsSuccessAction,
   TransferFundsFailureAction,
   CONNECT_WALLET_FAILURE,
   CONNECT_WALLET_REQUEST,
@@ -28,6 +26,7 @@ const INITIAL_STATE: WalletState = {
   isLoading: false,
   isTransferring: false,
   transactionId: null,
+  funds: null,
   error: null,
 }
 
@@ -84,7 +83,7 @@ export function walletReducer(
 
     case TRANSFER_FUNDS_SUCCESS: {
       const actionData = action.payload
-      return { ...state, isTransferring: false, transactionId: actionData?.transactionId?.hash}
+      return { ...state, isTransferring: false, transactionId: actionData?.transactionId?.hash, funds: actionData?.funds}
     }
 
     case TRANSFER_FUNDS_FAILURE: {
@@ -96,6 +95,7 @@ export function walletReducer(
       return {
         ...state,
         transactionId: null,
+        funds: null,
       };
     default:
       return state

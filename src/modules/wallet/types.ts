@@ -9,6 +9,7 @@ export type WalletState = {
   balanceError: string | null,
   isTransferring: boolean,
   transactionId: string | null,
+  funds: number | null,
 }
 
 export type WindowWithEthereum = Window & {

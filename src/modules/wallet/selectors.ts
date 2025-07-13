@@ -13,6 +13,11 @@ export const getBalance = createSelector(
     (wallet) => wallet.dummyBalance || null
 )
 
+export const getFunds = createSelector(
+    [getState],
+    (wallet) => wallet.funds || null
+)
+
 export const isConnected = createSelector(
     [getAddress],
     (address) => !!address

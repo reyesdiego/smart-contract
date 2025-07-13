@@ -3,6 +3,7 @@ import { Navbar } from 'decentraland-ui'
 import Wallet from '../pages/wallet';
 import Transfer from '../pages/transfer';
 import TransferSuccess from '../pages/transfer/transfer.success';
+import TransferFailure from "../pages/transfer/transfer.failure.tsx";
 
 const App = () => {
     return (
@@ -12,6 +13,7 @@ const App = () => {
                 <Route path="/" element={<Wallet />} />
                 <Route path="/transfer" element={<Transfer />} />
                 <Route path="/transfer-success/:transaction/:funds" element={<TransferSuccess />} />
+                <Route path="/transfer-failure" element={<TransferFailure />} />
             </Routes>
         </BrowserRouter>
     );

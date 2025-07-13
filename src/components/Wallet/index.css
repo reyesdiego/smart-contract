@@ -4,18 +4,15 @@
     .header {
         margin-bottom: 0;
     }
-
     .wallet-balance {
         font-size: 32px;
         font-weight: 1500;
         margin: 0;
     }
-
     .balance {
         align-items: baseline;
         gap: 8px;
     }
-
     .balance-card {
         margin-bottom: 17px;
     }
@@ -24,5 +21,8 @@
     }
     .wallet-token {
         font-size: 12px;
+    }
+    .transfer-button {
+        margin-left: auto
     }
 }

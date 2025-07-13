@@ -50,11 +50,12 @@ export function* handleConnectWalletRequest() {
     const provider = new ethers.BrowserProvider(windowWithEthereum.ethereum)
     yield call([provider, 'send'], 'eth_requestAccounts', []) as Awaited<ReturnType<typeof provider.send>>
     const signer = (yield call([provider, 'getSigner'])) as Awaited<ReturnType<typeof provider.getSigner>>
-
     const address = (yield call([signer, 'getAddress'])) as Awaited<ReturnType<typeof signer.getAddress>>
+
     yield put(connectWalletSuccess(address))
     yield put(walletBalanceRequest(address))
   } catch (error) {
+    console.error(error)
     yield put(connectWalletFailure(getMessageFromError(error)))
   }
 }
@@ -65,6 +66,7 @@ export function* handleGetBalanceRequest(action: WalletBalanceRequestAction) {
     const provider = new ethers.BrowserProvider(windowWithEthereum.ethereum)
     const token = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, provider)
     const balance: bigint = yield call(() => token.balanceOf(address))
+
     yield put(walletBalanceSuccess(balance))
   } catch (error) {
     yield put(walletBalanceFailure(getMessageFromError(error)))
@@ -75,11 +77,12 @@ export function* handleTransferTokenRequest(action: TransferFundsRequestAction) 
   try {
     const {transferTo, funds} = action.payload
     const provider = new ethers.BrowserProvider(windowWithEthereum.ethereum)
-    const signer = yield call([provider, 'getSigner'])
+    const signer = (yield call([provider, 'getSigner'])) as Awaited<ReturnType<typeof provider.getSigner>>
     const token = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, signer)
     const transaction = yield call(() => token.transfer(transferTo, funds))
+
     yield call([transaction, 'wait'])
-    yield put(transferFundsSuccess(transaction))
+    yield put(transferFundsSuccess(transaction, funds))
   } catch (error) {
     yield put(transferFundsFailure(getMessageFromError(error)))
   }

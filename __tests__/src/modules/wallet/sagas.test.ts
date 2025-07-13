@@ -2,9 +2,10 @@ import { runSaga } from 'redux-saga';
 import { handleGetBalanceRequest } from '../../../../src/modules/wallet/sagas';
 import {walletBalanceSuccess, walletBalanceFailure, GET_BALANCE_REQUEST} from '../../../../src/modules/wallet/actions';
 import * as ethers from 'ethers';
-import { getMessageFromError } from '../../../../src/modules/utils';
+import * as utils from '../../../../src/modules/utils';
+import { Contract } from 'ethers';
+import { AnyAction } from 'redux';
 
-// Mocks
 jest.mock('ethers');
 jest.mock('../../../../src/env', () => ({ VITE_TOKEN_ADDRESS: '0x01010101' }))
 
@@ -17,17 +18,16 @@ describe('handleGetBalanceRequest saga', () => {
     });
 
     it('dispatches success action on success', async () => {
-        // Mock the token contract
         const balanceOfMock = jest.fn().mockResolvedValue(fakeBalance);
-        (ethers as any).Contract.mockImplementation(() => ({
-            balanceOf: balanceOfMock,
-        }));
+        const dispatched: AnyAction[] = [];
 
-        const dispatched: any[] = [];
+        jest.spyOn(ethers, 'Contract').mockImplementation(() => ({
+            balanceOf: balanceOfMock,
+        }) as unknown as Contract);
 
         await runSaga(
             {
-                dispatch: (action) => dispatched.push(action),
+                dispatch: (action: AnyAction) => dispatched.push(action),
             },
             handleGetBalanceRequest,
             {type: GET_BALANCE_REQUEST, payload: fakeAddress }
@@ -41,18 +41,22 @@ describe('handleGetBalanceRequest saga', () => {
         const fakeError = new Error('Failed balance');
 
         const balanceOfMock = jest.fn().mockRejectedValue(fakeError);
-        (ethers as any).Contract.mockImplementation(() => ({
+        // (ethers as any).Contract.mockImplementation(() => ({
+        //     balanceOf: balanceOfMock,
+        // }));
+        jest.spyOn(ethers, 'Contract').mockImplementation(() => ({
             balanceOf: balanceOfMock,
-        }));
+        }) as unknown as Contract);
 
-        // Optionally mock getErrorMessage
-        jest.spyOn(require('../../../../src/modules/utils'), 'getMessageFromError').mockReturnValue('Mock error message');
+        jest
+            .spyOn(utils, 'getMessageFromError')
+            .mockReturnValue('Mock error message');
 
-        const dispatched: any[] = [];
+        const dispatched: AnyAction[] = [];
 
         await runSaga(
             {
-                dispatch: (action) => dispatched.push(action),
+                dispatch: (action: AnyAction) => dispatched.push(action),
             },
             handleGetBalanceRequest,
             {type: GET_BALANCE_REQUEST, payload: fakeAddress }

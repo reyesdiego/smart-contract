@@ -1,0 +1,13 @@
+.transfer {
+    margin-bottom: 24px;
+
+    .header {
+        margin-bottom: 0;
+    }
+    .send-button {
+        margin-left: auto
+    }
+    .back-button {
+        margin-right: auto
+    }
+}

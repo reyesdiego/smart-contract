@@ -13,11 +13,13 @@ describe('wallet selectors', () => {
         wallet: {
             address: '0x1234567890abcdef',
             dummyBalance: 42n,
+            isConnecting: false,
+            error: null,
             isLoading: false,
+            balanceError: null,
             isTransferring: false,
             transactionId: '0xabc',
-            isConnecting: false,
-            error: null
+            funds: 100,
         }
     }
 
@@ -33,7 +35,7 @@ describe('wallet selectors', () => {
         const state = {
             wallet: {
                 ...baseState.wallet,
-                address: undefined
+                address: ''
             }
         }
         expect(getAddress(state as RootState)).toBe('')
@@ -47,7 +49,7 @@ describe('wallet selectors', () => {
         const state = {
             wallet: {
                 ...baseState.wallet,
-                dummyBalance: undefined
+                dummyBalance: 0n
             }
         }
         expect(getBalance(state as RootState)).toBeNull()

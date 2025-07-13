@@ -21,6 +21,7 @@ const INITIAL_STATE: WalletState = {
     isTransferring: false,
     transactionId: null,
     error: null,
+    funds: null,
 }
 
 describe('wallet reducer', () => {
@@ -128,7 +129,8 @@ describe('wallet reducer', () => {
             const expectedState = {
                 ...INITIAL_STATE,
                 isTransferring: false,
-                transactionId: '0x456'
+                transactionId: '0x456',
+                funds: undefined
             }
             expect(walletReducer(INITIAL_STATE, action)).toEqual(expectedState)
         })

@@ -33,9 +33,7 @@ export function connectWalletSuccess(address: string) {
 export function connectWalletFailure(error: string) {
   return {
     type: CONNECT_WALLET_FAILURE,
-    payload: {
-      error,
-    },
+    payload: { error },
   }
 }
 
@@ -67,10 +65,10 @@ export function transferFundsRequest(transferTo: string, funds: number) {
   }
 }
 
-export function transferFundsSuccess(transactionId: string) {
+export function transferFundsSuccess(transactionId: string, funds: number) {
   return {
     type: TRANSFER_FUNDS_SUCCESS,
-    payload: {transactionId}
+    payload: {transactionId, funds}
   }
 }
 

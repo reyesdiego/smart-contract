@@ -9,6 +9,7 @@ import {
 } from '../../modules/wallet/selectors.ts';
 import Wallet from '../../components/Wallet'
 import { Center} from 'decentraland-ui'
+import Error from '../../components/Error'
 
 const WalletPage = () => {
     const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const WalletPage = () => {
         return <Center>Loading...</Center>;
     }
     if (error) {
-        return <Center>{error}</Center>;
+        return <Center><Error message={error} onRetry={()=>dispatch(connectWalletRequest())}/></Center>;
     }
 
     return (
