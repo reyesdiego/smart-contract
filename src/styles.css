@@ -1,6 +1,7 @@
 .card.ui {
   padding: 30px;
   width: fit-content;
+  width: 500px;
 }
 
 .ui.loader.text {
