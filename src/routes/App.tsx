@@ -3,17 +3,18 @@ import { Navbar } from 'decentraland-ui'
 import Wallet from '../pages/wallet';
 import Transfer from '../pages/transfer';
 import TransferSuccess from '../pages/transfer/transfer.success';
-import TransferFailure from "../pages/transfer/transfer.failure.tsx";
+import TransferFailure from "../pages/transfer/transfer.failure";
+import route_paths from './routes';
 
 const App = () => {
     return (
         <BrowserRouter>
             <Navbar  activePage="wallet" />
             <Routes>
-                <Route path="/" element={<Wallet />} />
-                <Route path="/transfer" element={<Transfer />} />
-                <Route path="/transfer-success/:transaction/:funds" element={<TransferSuccess />} />
-                <Route path="/transfer-failure" element={<TransferFailure />} />
+                <Route path={route_paths.WALLET} element={<Wallet />} />
+                <Route path={route_paths.TRANSFER} element={<Transfer />} />
+                <Route path={route_paths.TRANSFER_SUCCESS} element={<TransferSuccess />} />
+                <Route path={route_paths.TRANSFER_FAILURE} element={<TransferFailure />} />
             </Routes>
         </BrowserRouter>
     );
