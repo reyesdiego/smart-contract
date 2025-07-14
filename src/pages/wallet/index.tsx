@@ -34,7 +34,7 @@ const WalletPage = () => {
         </Center>;
     }
     if (error) {
-        return <Center><Error message={error} onRetry={()=>dispatch(connectWalletRequest())}/></Center>;
+        return <Center><Error title="Error connecting to the blockchain." message={error} onRetry={()=>dispatch(connectWalletRequest())}/></Center>;
     }
 
     return (
