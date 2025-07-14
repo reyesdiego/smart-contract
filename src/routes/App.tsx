@@ -6,8 +6,9 @@ import TransferSuccess from '../pages/transfer/transfer.success';
 import TransferFailure from "../pages/transfer/transfer.failure";
 import route_paths from './routes';
 import NotFound from "./NotFound.tsx";
+import React from "react";
 
-const App = () => {
+const App: React.FC = () => {
     return (
         <BrowserRouter>
             <Navbar  activePage="wallet" />

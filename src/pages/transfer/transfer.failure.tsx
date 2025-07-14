@@ -3,6 +3,7 @@ import {Button, Card, Center, Icon, Row} from "decentraland-ui"
 import React, {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {transferFundsClearTransaction} from "../../modules/wallet/actions";
+import route_paths from "../../routes/routes.ts";
 
 const Failure: React.FC = () => {
     const dispatch = useDispatch();
@@ -22,13 +23,13 @@ const Failure: React.FC = () => {
         </Card>
         <Row>
             <div style={{marginRight: "auto"}}>
-                <Button basic onClick={() => navigateTo('/')}>
+                <Button basic onClick={() => navigateTo(route_paths.WALLET)}>
                     <Icon name="arrow left"/>
                     Wallet
                 </Button>
             </div>
             <div style={{marginLeft: "auto"}}>
-                <Button name="transfer" basic onClick={() => navigateTo('/transfer')}>
+                <Button name="transfer" basic onClick={() => navigateTo(route_paths.TRANSFER)}>
                     <Icon name="arrow right"/>
                     Try again
                 </Button>

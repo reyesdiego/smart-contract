@@ -2,6 +2,7 @@ import {Button, Card, Field, Header, Icon, Row} from "decentraland-ui";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import './index.css'
+import route_paths from "../../routes/routes.ts";
 
 const Transfer = ({balance, handleSend}: {balance: bigint | null, handleSend: (transferTo: string, funds: number) => void}) => {
     const navigateTo = useNavigate();
@@ -55,7 +56,7 @@ const Transfer = ({balance, handleSend}: {balance: bigint | null, handleSend: (t
         </Card>
         <Row>
             <div className="back-button" >
-                <Button basic onClick={() => navigateTo('/')}>
+                <Button basic onClick={() => navigateTo(route_paths.WALLET)}>
                     <Icon name="arrow left"/>
                     Back
                 </Button>

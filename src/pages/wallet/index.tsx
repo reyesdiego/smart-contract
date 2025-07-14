@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { connectWalletRequest } from '../../modules/wallet/actions.ts';
 import {
@@ -11,7 +11,7 @@ import Wallet from '../../components/Wallet'
 import {Center, Loader} from 'decentraland-ui'
 import Error from '../../components/Error'
 
-const WalletPage = () => {
+const WalletPage: React.FC = () => {
     const dispatch = useDispatch();
     const address = useSelector(getAddress);
     const isConnectingSel = useSelector(isConnecting)

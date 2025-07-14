@@ -3,6 +3,7 @@ import { Card, Header, Row, Section, Button, Icon } from 'decentraland-ui'
 import './index.css'
 import {useNavigate} from "react-router-dom";
 import Hash from "../Commons/hash.tsx";
+import route_paths from "../../routes/routes.ts";
 
 type WalletProps = { address: string | null; balance: bigint | null }
 
@@ -30,7 +31,7 @@ const Wallet: React.FC<WalletProps> = ({ address, balance }) => {
             </Card>
             <Row>
                 <div className="transfer-button">
-                <Button basic onClick={() => navigateTo('/transfer')}>
+                <Button basic onClick={() => navigateTo(route_paths.TRANSFER)}>
                     <Icon name="arrow right" />
                     Transfer
                 </Button>
