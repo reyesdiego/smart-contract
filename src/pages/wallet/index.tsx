@@ -8,7 +8,7 @@ import {
     isLoading
 } from '../../modules/wallet/selectors.ts';
 import Wallet from '../../components/Wallet'
-import { Center} from 'decentraland-ui'
+import {Center, Loader} from 'decentraland-ui'
 import Error from '../../components/Error'
 
 const WalletPage = () => {
@@ -23,7 +23,9 @@ const WalletPage = () => {
     }, [dispatch]);
 
     if (isLoadingBalance) {
-        return <Center>Loading...</Center>;
+        return <Center>
+            <Loader active size="massive" content={'Loading...'}/>
+        </Center>;
     }
     if (error) {
         return <Center><Error message={error} onRetry={()=>dispatch(connectWalletRequest())}/></Center>;

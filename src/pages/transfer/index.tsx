@@ -1,4 +1,4 @@
-import {Center} from "decentraland-ui";
+import {Center, Loader} from "decentraland-ui";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -43,7 +43,9 @@ const TransferPage = () => {
     }
 
     if (isTransferring) {
-        return <Center>Transferring...</Center>;
+        return <Center>
+            <Loader active size="massive" content={'Transferring...'}/>
+        </Center>;
     }
 
     return <Center>
