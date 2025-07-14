@@ -28,19 +28,23 @@ const Transfer = ({balance, handleSend}: {balance: bigint | null, handleSend: (t
     }
     return  (<div className="transfer">
         <Card>
-            <Header>Transfer funds</Header>
-            <Field
-                label="Address"
-                error={transferToError}
-                maxLength={42}
-                onChange={(_, data) => {
-                    if (data.value.length < 42) return;
-
-                    const isValidAddress = /^0x[a-fA-F0-9]{40}$/.test(data.value);
-                    setTransferToError(!isValidAddress);
-                    setTransferTo(data.value);
+            <span style={{
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "1rem",
+                marginBottom: "3rem",
+                textAlign: "center",
+            }}>
+                <Header>Transfer</Header>
+                <p>Send funds to another address</p>
+            </span>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "2rem",
                 }}
-            />
+            >
             <Field label="Funds to Transfer"
                    type="number"
                    message={fundsMessage}
@@ -55,7 +59,20 @@ const Transfer = ({balance, handleSend}: {balance: bigint | null, handleSend: (t
                        }
                        setFunds(Number(data.value));
                    }}
-            ></Field>
+            />
+            <Field
+                label="Address"
+                error={transferToError}
+                maxLength={42}
+                onChange={(_, data) => {
+                    if (data.value.length < 42) return;
+
+                    const isValidAddress = /^0x[a-fA-F0-9]{40}$/.test(data.value);
+                    setTransferToError(!isValidAddress);
+                    setTransferTo(data.value);
+                }}
+            />
+            </div>
         </Card>
         <Row>
             <div className="back-button" >
