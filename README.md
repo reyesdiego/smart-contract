@@ -152,3 +152,18 @@ http://localhost:5173
 
 The app will connect to your local Ethereum node!
 
+![](./readme/Metamask_wallet.png)
+
+---
+
+## 🙏 Final Words
+
+Thanks for checking out this project!
+
+This app is a simple example showing how to connect a React frontend to the Ethereum blockchain. Whether you're experimenting with local networks like Hardhat or planning to deploy to testnets, this dApp is a great starting point.
+
+Feel free to fork, contribute, or adapt it for your own blockchain projects. Happy coding and building on Web3!
+
+reyesdiego@hotmail.com
+
+---
