@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import './index.css'
 import route_paths from "../../routes/routes.ts";
+import {useSelector} from "react-redux";
+import {getIsTransferring} from "../../modules/wallet/selectors.ts";
 
 const Transfer = ({balance, handleSend}: {balance: bigint | null, handleSend: (transferTo: string, funds: number) => void}) => {
     const navigateTo = useNavigate();
@@ -11,6 +13,7 @@ const Transfer = ({balance, handleSend}: {balance: bigint | null, handleSend: (t
     const [fundsMessage, setFundsMessage] = useState('');
     const [fundsError, setFundsError] = useState(false);
     const [transferToError, setTransferToError] = useState(false);
+    const isTransferring = useSelector(getIsTransferring);
 
     const sendDisabled = !transferTo || !funds || fundsError && transferToError
 
@@ -62,7 +65,7 @@ const Transfer = ({balance, handleSend}: {balance: bigint | null, handleSend: (t
                 </Button>
             </div>
             <div className="send-button" >
-                <Button primary disabled={sendDisabled} onClick={() => onSend(transferTo, funds)}>
+                <Button primary disabled={sendDisabled} loading={isTransferring} onClick={() => onSend(transferTo, funds)}>
                     <Icon name="send"/>
                     Send
                 </Button>

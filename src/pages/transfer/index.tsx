@@ -1,8 +1,8 @@
-import {Center, Loader} from "decentraland-ui";
+import {Center} from "decentraland-ui";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    getBalance, getError, getFunds, getIsTransferring,
+    getBalance, getError, getFunds,
     getTransactionId,
 } from "../../modules/wallet/selectors.ts";
 import {useEffect} from "react";
@@ -15,7 +15,6 @@ const TransferPage = () => {
     const balance = useSelector(getBalance);
     const transactionId = useSelector(getTransactionId);
     const funds = useSelector(getFunds);
-    const isTransferring = useSelector(getIsTransferring);
     const error = useSelector(getError);
 
     useEffect(() => {
@@ -40,12 +39,6 @@ const TransferPage = () => {
 
     function handleSend(transferTo: string, funds: number) {
         dispatch(transferFundsRequest(transferTo, funds));
-    }
-
-    if (isTransferring) {
-        return <Center>
-            <Loader active size="massive" content={'Transferring...'}/>
-        </Center>;
     }
 
     return <Center>
