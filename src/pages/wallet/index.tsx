@@ -5,7 +5,7 @@ import {
     getBalance,
     getAddress,
     getError,
-    isLoading
+    isLoading, isConnecting
 } from '../../modules/wallet/selectors.ts';
 import Wallet from '../../components/Wallet'
 import {Center, Loader} from 'decentraland-ui'
@@ -14,6 +14,7 @@ import Error from '../../components/Error'
 const WalletPage = () => {
     const dispatch = useDispatch();
     const address = useSelector(getAddress);
+    const isConnectingSel = useSelector(isConnecting)
     const isLoadingBalance = useSelector(isLoading);
     const balance = useSelector(getBalance);
     const error = useSelector(getError);
@@ -22,9 +23,14 @@ const WalletPage = () => {
         dispatch(connectWalletRequest());
     }, [dispatch]);
 
+    if (isConnectingSel) {
+        return <Center>
+            <Loader active size="massive" content={'Connecting to the blockchain...'}/>
+        </Center>;
+    }
     if (isLoadingBalance) {
         return <Center>
-            <Loader active size="massive" content={'Loading...'}/>
+            <Loader active size="massive" content={'Loading Balance...'}/>
         </Center>;
     }
     if (error) {
