@@ -15,3 +15,5 @@ export function getMessageFromError(error: unknown): string {
 
   return message;
 }
+
+export const copyToClipboard = (text?: string) => text && navigator.clipboard.writeText(text);

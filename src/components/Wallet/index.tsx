@@ -2,21 +2,20 @@ import React from 'react'
 import { Card, Header, Row, Section, Button, Icon } from 'decentraland-ui'
 import './index.css'
 import {useNavigate} from "react-router-dom";
+import Hash from "../Commons/hash.tsx";
 
 type WalletProps = { address: string | null; balance: bigint | null }
 
 const Wallet: React.FC<WalletProps> = ({ address, balance }) => {
     const navigateTo = useNavigate()
-    const addressShort = address?.slice(0, 6) + '...' + address?.slice(-4);
+
     return (<div className="wallet">
             <Card >
                 <Header>Wallet</Header>
                 <Section size="tiny">
                     <Row className="balance">
-                        <strong>Address:</strong>&nbsp;
-                        <p className="wallet-token">
-                        {addressShort || 'Address is not available'}
-                        </p>
+                        <strong>Address:</strong>
+                        <Hash hash={address || ''}></Hash>
                     </Row>
                 </Section>
                 <Section size="tiny">

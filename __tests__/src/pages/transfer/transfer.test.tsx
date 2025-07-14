@@ -40,7 +40,7 @@ describe('Transfer' , () => {
             expect(screen.getByText(/Congrats !/i)).toBeInTheDocument();
             expect(screen.getByText(/You've just successfully transferred/i)).toBeInTheDocument();
             expect(screen.getByText(/13 DUMMIES/i)).toBeInTheDocument();
-            expect(screen.getByText(/Transaction ID: tx/i)).toBeInTheDocument();
+            expect(screen.getByText(/Transaction ID:/i)).toBeInTheDocument();
         });
         it('is should navigates to transfer page when press Transfer', () => {
             render(<Provider store={store}><Success /></Provider>);

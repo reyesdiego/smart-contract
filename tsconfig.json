@@ -4,7 +4,8 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "esModuleInterop": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "allowImportingTsExtensions": true
   },
   "files": [],
   "references": [
